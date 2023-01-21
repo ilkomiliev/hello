@@ -9,7 +9,12 @@ import (
 func helloHandler(w http.ResponseWriter, r *http.Request) {
 	response := os.Getenv("RESPONSE")
 	if len(response) == 0 {
-		response = "Hello OpenShift for Developers!"
+		response = os.Getenv("dbpwduser")
+		if len(response) == 0 {
+			response = "Hello OpenShift for Developers!"
+		} else {
+			response = "Hello mighty dbadmin: " + response
+		}
 	}
 
 	fmt.Fprintln(w, response)
